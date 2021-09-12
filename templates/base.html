@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="">
     
     <div class="boardlist">
-        <a>/a/</a> - <a>/int/</a> - <a>/pi/</a>
+        {% for board in boards %}
+            <a href="/boards/{{board.acronym}}"><p>{{board.acronym}}</p></a>
+        {% endfor %}
     </div>
     {% block head %} {% endblock %}
 </head>
