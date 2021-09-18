@@ -4,3 +4,21 @@
     <title>FlaskChan - Board</title>
     
 {% endblock head %}
+
+{% block body %}
+
+    {% for post in posts %}
+        <div class="post">
+            <div class="post_header">
+                <p>{{post.op_id}}</p>
+                <p>{{post.subject}}</p>
+                <p>{{post.name}}</p>
+                <p>{{post.date}}</p>
+            </div>
+            <div class="content">
+                <p>{{post.content}}</p>
+            </div>
+        </div>
+    {% endfor %}    
+
+{% endblock body %}

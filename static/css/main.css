@@ -1,0 +1,11 @@
+div.boardlist{
+    display: inline-block;
+}
+div.logo{
+    display: inline-block;
+}
+
+div.post_header{
+    display: inline-block;
+    background-color: aqua;
+}
