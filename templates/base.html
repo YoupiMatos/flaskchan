@@ -8,9 +8,14 @@
     
     <div class="boardlist">
         {% for board in boards %}
-            <a href="/boards/{{board.acronym}}"><p> {{board.acronym}} </p></a>
+            <a href="/boards/{{board.acronym}}"><p title="{{board.name}}"> {{board.acronym}} </p></a>
 
         {% endfor %}
+    </div>
+    
+    <div class='logo'>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <h1>FlaskChan</h1>
     </div>
     {% block head %} {% endblock %}
 </head>

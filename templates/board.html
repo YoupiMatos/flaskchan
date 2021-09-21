@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>FlaskChan - Board</title>
+    <title>FlaskChan - {{ current_board }}</title>
     
 {% endblock head %}
 
 {% block body %}
-
+    <div class="new_thread">
+        <form action="/boards/{{ current_board }}" method="POST">
+            <label for="subject">Sujet</label>
+            <input type="text" name="subject" id="subject">
+            <label for="name">Nom</label>
+            <input type="text" name="name" id="name">
+            <label for="content">Contenu</label>
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Nouveau Fil">
+        </form>
+    </div>
     {% for post in posts %}
         <div class="post">
             <div class="post_header">
-                <p>{{post.op_id}}</p>
+                <p>{{post.id}}</p>
                 <p>{{post.subject}}</p>
                 <p>{{post.name}}</p>
                 <p>{{post.date}}</p>

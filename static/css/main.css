@@ -1,11 +1,20 @@
 div.boardlist{
-    display: inline-block;
-}
-div.logo{
-    display: inline-block;
+    display: inline-flex;
 }
 
 div.post_header{
-    display: inline-block;
+    display: inline-flex;
     background-color: aqua;
+}
+
+p{
+    margin: 2px;
+}
+
+.logo{
+    text-align: center;
+}
+
+.new_thread{
+    display:list-item;
 }
