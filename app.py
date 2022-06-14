@@ -17,7 +17,6 @@ app.config.from_object(__name__)
 flask_db = FlaskDB(app)
 db = flask_db.database
 
-
 def Get_Posts(board):
     posts = Post.query.filter(Post.board == board).all()
     return posts
