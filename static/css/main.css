@@ -2,6 +2,10 @@ div.boardlist{
     display: inline-flex;
 }
 
+div.header{
+    text-align: center;
+}
+
 div.post_header{
     display: inline-flex;
     background-color: aqua;

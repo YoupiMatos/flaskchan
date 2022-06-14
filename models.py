@@ -1,16 +1,28 @@
-from app import db
+from peewee import *
+from app import flask_db
 from datetime import datetime
 
-class Boards(db.Model):
-    acronym = db.Column(db.String, nullable = False, unique = True, primary_key = True)
-    name = db.Column(db.String, nullable = False)
-    description = db.Column(db.String)
+class Board(flask_db.Model):
+    acronym = CharField(unique = True, primary_key = True)
+    name = CharField()
+    description = CharField()
 
-class Posts(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    op_id = db.Column(db.Integer)
-    board = db.Column(db.String)
-    subject = db.Column(db.String)
-    name = db.Column(db.String, default="Anonyme")
-    date = db.Column(db.DateTime, default = datetime.utcnow)
-    content = db.Column(db.String, nullable = False)
+    @classmethod
+    def getBoards(cls):
+        return Board.select()
+
+    @classmethod
+    def getCurrentBoard(cls, acronym):
+        return Board.select().where(Board.acronym == acronym)
+
+class Post(flask_db.Model):
+    op_id = IntegerField()
+    board = ForeignKeyField(Board, backref='posts')
+    subject = CharField(max_length=64, null=True)
+    name = CharField(max_length=40, default='Anonyme')
+    date = DateTimeField(default = datetime.utcnow)
+    content = CharField(max_length=1200)
+
+    @classmethod
+    def getPosts(cls, searchedBoard):
+        return Post.select().where(Post.board == searchedBoard)

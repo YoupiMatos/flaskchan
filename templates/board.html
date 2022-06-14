@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block head %}
-    <title>FlaskChan - {{ current_board }}</title>
-    
-{% endblock head %}
+{% block header %}
+    <title>FlaskChan - {{ current_board.acronym }} - {{ current_board.name }}</title>
+    <h3>{{ current_board.name }} - {{ current_board.description }}</h3>
+{% endblock %}
 
 {% block body %}
     <div class="new_thread">
