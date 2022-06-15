@@ -18,11 +18,19 @@ class Board(flask_db.Model):
 class Post(flask_db.Model):
     op_id = IntegerField()
     board = ForeignKeyField(Board, backref='posts')
-    subject = CharField(max_length=64, null=True)
+    subject = CharField(max_length=64, default='')
     name = CharField(max_length=40, default='Anonyme')
-    date = DateTimeField(default = datetime.utcnow)
+    date = DateTimeField(default = datetime.utcnow().strftime('%d/%m/%y - %H:%M:%S'))
     content = CharField(max_length=1200)
 
     @classmethod
-    def getPosts(cls, searchedBoard):
-        return Post.select().where(Post.board == searchedBoard)
+    def getThreads(cls, searchedBoard):
+        return Post.select().where((Post.board == searchedBoard) & (Post.op_id == 0)).order_by(Post.date.desc())
+
+    @classmethod
+    def getThreadsPosts(cls, searchedBoard, post_id):
+        return Post.select().where((Post.board == searchedBoard) & (Post.op_id == post_id))
+
+    @classmethod
+    def getOp(cls, op_id):
+        return Post.select().where(Post.id == op_id)

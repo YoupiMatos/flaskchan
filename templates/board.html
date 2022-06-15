@@ -6,8 +6,15 @@
 {% endblock %}
 
 {% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="flash">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div class="new_thread">
-        <form action="/boards/{{ current_board }}" method="POST">
+        <form action="{{ url_for('boardView', acronym=current_board.acronym)}}" method="POST">
             <label for="subject">Sujet</label>
             <input type="text" name="subject" id="subject">
             <label for="name">Nom</label>
@@ -24,6 +31,7 @@
                 <p>{{post.subject}}</p>
                 <p>{{post.name}}</p>
                 <p>{{post.date}}</p>
+                <a href=" {{ url_for('threadView', acronym=current_board.acronym, thread_id=post.id) }}">Voir le fil</a>
             </div>
             <div class="content">
                 <p>{{post.content}}</p>
