@@ -7,7 +7,7 @@
 
 {% block body %}
     <div class="reply_to_thread">
-        <form action="{{ url_for('threadView', acronym=current_board.acronym, thread_id=op.id)}}" method="POST">
+        <form action="{{ url_for('threadView', acronym=current_board.acronym, thread_id=op.id)}}" method="POST" enctype=multipart/form-data>
             <label for="name">Nom</label>
             <input type="text" name="name" id="name">
             <label for="content">Contenu</label>

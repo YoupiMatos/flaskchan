@@ -1,5 +1,4 @@
 from peewee import *
-from sqlalchemy import true
 from app import flask_db
 from datetime import datetime
 

@@ -38,20 +38,21 @@ def boardView(acronym):
             if post.content.strip() == '':
                 flash("Le contenu ne doit pas être vide.")
         else: flash("Le contenu ne doit pas être vide.")
-        #try:
-        with db.atomic():
-            if 'image' in request.files and request.files['image'].filename != '':
-                print("yo")
-                if request.files['image']:
-                    filename = secure_filename(request.files['image'].filename)
-                    request.files['image'].save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            post.image = request.files['image'].filename
-            post.save()
-        """ except:
+        try:
+            with db.atomic():
+                if 'image' in request.files and request.files['image'].filename != '':
+                    if request.files['image']:
+                        filename = secure_filename(request.files['image'].filename)
+                        request.files['image'].save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                        post.image = request.files['image'].filename
+                else: post.image = None
+                post.save()
+
+        except:
             flash("Erreur lors de l'ajout du post", 'error')
         else:
             flash('Post enregistré!', 'success')
-            return redirect('/boards/' + acronym) """
+            return redirect('/boards/' + acronym)
 
     current_board = get_object_or_404(Board.getCurrentBoard(acronym))
     posts = Post.getThreads(acronym)
@@ -69,6 +70,12 @@ def threadView(acronym, thread_id):
         reply.content = request.form.get('content')
         try:
             with db.atomic():
+                if 'image' in request.files and request.files['image'].filename != '':
+                    if request.files['image']:
+                        filename = secure_filename(request.files['image'].filename)
+                        request.files['image'].save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                        reply.image = request.files['image'].filename
+                else: reply.image = None
                 reply.save()
         except: flash("Erreur lors de l'ajout du post", "error")
         else:

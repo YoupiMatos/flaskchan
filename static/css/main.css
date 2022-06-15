@@ -1,3 +1,7 @@
+body{
+    background-color: turquoise;
+}
+
 div.boardlist{
     display: inline-flex;
 }
@@ -21,4 +25,26 @@ p{
 
 .new_thread{
     display:list-item;
+}
+
+img.minimized{
+    width: 150px;
+}
+.content{
+    display: block;
+    padding: 1em;
+}
+
+.post-images{
+    float: left;
+}
+
+.post{
+    background-color: aquamarine;
+    margin: 0.5em;
+    display:table;
+}
+
+.op{
+    display: table;
 }
