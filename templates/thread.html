@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <title>FlaskChan {% if op.subject %}- {{ op.subject }}{% endif %}- {{ current_board.name }}</title>
+    <title>FlaskChan - {{ op.id }} {% if op.subject %}- {{ op.subject }}{% endif %}- {{ current_board.name }}</title>
     <h3>{{ current_board.name }} - {{ current_board.description }}</h3>
 {% endblock %}
 
@@ -11,18 +11,21 @@
             <label for="name">Nom</label>
             <input type="text" name="name" id="name">
             <label for="content">Contenu</label>
-            <input type="text" name="content" id="content">
+            <textarea name="content" id="content" required></textarea>
+            <label for="image">Image</label>
+            <input type="file" name="image" accept=".png,.jpg,.jpeg">
             <input type="submit" value="Répondre au fil">
         </form>
     </div>
     <div class="op">
         <div class="post_header">
-            <p>{{op.id}}</p>
+            <p>No°{{op.id}}</p>
             <p>{{op.subject}}</p>
             <p>{{op.name}}</p>
             <p>{{op.date}}</p>
         </div>
         <div class="content">
+            <img src="{{ url_for('static', filename='uploads/' ~ op.image) }}" alt="uploaded image" class='post-images minimized'>
             <p>{{op.content}}</p>
         </div>
     </div>
@@ -36,6 +39,9 @@
                 <p>{{post.date}}</p>    
             </div>
             <div class="content">
+                {% if post.image %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ post.image) }}" alt="uploaded image" class='post-images minimized'>
+                {% endif %}
                 <p>{{post.content}}</p>
             </div>
         </div>

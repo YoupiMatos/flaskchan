@@ -2,9 +2,11 @@ import os.path
 from flask import Flask, render_template, url_for, request, redirect, flash, get_flashed_messages
 from playhouse.flask_utils import FlaskDB, get_object_or_404
 from datetime import datetime
+from werkzeug.utils import secure_filename
 from models import *
 
 # Configuration
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 APP_DIR = os.path.dirname(os.path.realpath(__file__))
 DATABASE = 'sqliteext:///%s' % os.path.join(APP_DIR, 'flaskchan.db')
 SECRET_KEY = 'shhh, secret!'
@@ -12,6 +14,7 @@ SECRET_KEY = 'shhh, secret!'
 # Flask app configuration using the values up there
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['UPLOAD_FOLDER'] = APP_DIR + '/static/uploads'
 
 # Database configuration using peewee util FlaskDB
 flask_db = FlaskDB(app)
@@ -30,15 +33,25 @@ def boardView(acronym):
         post.subject = request.form.get('subject')
         post.board = Board.select().where(Board.acronym == acronym)
         if request.form.get('name'): post.name = request.form.get('name')
-        post.content = request.form.get('content')
-        try:
-            with db.atomic():
-                post.save()
-        except:
+        if request.form.get('content'):
+            post.content = request.form.get('content')
+            if post.content.strip() == '':
+                flash("Le contenu ne doit pas être vide.")
+        else: flash("Le contenu ne doit pas être vide.")
+        #try:
+        with db.atomic():
+            if 'image' in request.files and request.files['image'].filename != '':
+                print("yo")
+                if request.files['image']:
+                    filename = secure_filename(request.files['image'].filename)
+                    request.files['image'].save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            post.image = request.files['image'].filename
+            post.save()
+        """ except:
             flash("Erreur lors de l'ajout du post", 'error')
         else:
             flash('Post enregistré!', 'success')
-            return redirect('/boards/' + acronym)
+            return redirect('/boards/' + acronym) """
 
     current_board = get_object_or_404(Board.getCurrentBoard(acronym))
     posts = Post.getThreads(acronym)

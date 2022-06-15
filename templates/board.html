@@ -14,13 +14,15 @@
         {% endif %}
     {% endwith %}
     <div class="new_thread">
-        <form action="{{ url_for('boardView', acronym=current_board.acronym)}}" method="POST">
+        <form action="{{ url_for('boardView', acronym=current_board.acronym)}}" method="POST" enctype=multipart/form-data>
             <label for="subject">Sujet</label>
             <input type="text" name="subject" id="subject">
             <label for="name">Nom</label>
             <input type="text" name="name" id="name">
             <label for="content">Contenu</label>
-            <input type="text" name="content" id="content">
+            <textarea name="content" id="content" required></textarea>
+            <label for="image">Image</label>
+            <input type="file" name="image" accept=".png,.jpg,.jpeg" required>
             <input type="submit" value="Nouveau Fil">
         </form>
     </div>

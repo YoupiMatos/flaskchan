@@ -1,4 +1,5 @@
 from peewee import *
+from sqlalchemy import true
 from app import flask_db
 from datetime import datetime
 
@@ -22,6 +23,7 @@ class Post(flask_db.Model):
     name = CharField(max_length=40, default='Anonyme')
     date = DateTimeField(default = datetime.utcnow().strftime('%d/%m/%y - %H:%M:%S'))
     content = CharField(max_length=1200)
+    image = CharField(null=True)
 
     @classmethod
     def getThreads(cls, searchedBoard):
