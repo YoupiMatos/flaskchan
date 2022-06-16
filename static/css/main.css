@@ -23,12 +23,25 @@ p{
     text-align: center;
 }
 
-.new_thread{
-    display:list-item;
+form table{
+    margin:auto;
+}
+
+table{
+    margin:auto;
+}
+form table tr th{
+    text-align: left;
+}
+
+form table tr td{
+    text-align: left;
+    margin: 0;
+    padding: 0;
 }
 
 img.minimized{
-    width: 150px;
+    max-width: 150px;
 }
 .content{
     display: block;

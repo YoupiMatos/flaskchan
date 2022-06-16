@@ -19,10 +19,10 @@
     </div>
     <div class="op">
         <div class="post_header">
-            <p>No°{{op.id}}</p>
             <p>{{op.subject}}</p>
             <p>{{op.name}}</p>
             <p>{{op.date}}</p>
+            <p>No.{{op.id}}</p>
         </div>
         <div class="content">
             <img src="{{ url_for('static', filename='uploads/' ~ op.image) }}" alt="uploaded image" class='post-images minimized'>
@@ -33,10 +33,9 @@
         {% for post in posts %}
         <div class="post">
             <div class="post_header">
-                <p>{{post.id}}</p>
-                <p>{{post.subject}}</p>
                 <p>{{post.name}}</p>
-                <p>{{post.date}}</p>    
+                <p>{{post.date}}</p>
+                <p>No.{{post.id}}</p>
             </div>
             <div class="content">
                 {% if post.image %}
