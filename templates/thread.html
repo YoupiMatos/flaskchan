@@ -18,32 +18,30 @@
         </form>
     </div>
     <div class="op">
-        <div class="post_header">
+        <div class="op__header">
             <p>{{op.subject}}</p>
             <p>{{op.name}}</p>
             <p>{{op.date}}</p>
             <p>No.{{op.id}}</p>
         </div>
         <div class="content">
-            <img src="{{ url_for('static', filename='uploads/' ~ op.image) }}" alt="uploaded image" class='post-images minimized'>
+            <img src="{{ url_for('static', filename='uploads/' ~ op.image) }}" alt="uploaded image" class='post_images minimized'>
             <p>{{op.content}}</p>
         </div>
     </div>
-    <div class="replies">
-        {% for post in posts %}
-        <div class="post">
-            <div class="post_header">
+    {% for post in posts %}
+        <div class="replies">
+            <div class="replies_header">
                 <p>{{post.name}}</p>
                 <p>{{post.date}}</p>
                 <p>No.{{post.id}}</p>
             </div>
-            <div class="content">
+            <div class="replies_content">
                 {% if post.image %}
-                    <img src="{{ url_for('static', filename='uploads/' ~ post.image) }}" alt="uploaded image" class='post-images minimized'>
+                    <img src="{{ url_for('static', filename='uploads/' ~ post.image) }}" alt="uploaded image" class='post_images minimized'>
                 {% endif %}
                 <p>{{post.content}}</p>
             </div>
         </div>
     {% endfor %}  
-    </div>
 {% endblock %}

@@ -10,7 +10,7 @@ div.header{
     text-align: center;
 }
 
-div.post_header{
+div.replies_header, .op_header{
     display: inline-flex;
     background-color: aqua;
 }
@@ -41,18 +41,26 @@ form table tr td{
 }
 
 img.minimized{
-    max-width: 150px;
+    max-width: 125px;
+    height: auto;
 }
-.content{
+
+img.maximized{
+    max-width: 100%;
+    height: auto;
+}
+
+.replies_content{
     display: block;
     padding: 1em;
 }
 
-.post-images{
+.post_images{
     float: left;
+    cursor: pointer;
 }
 
-.post{
+.replies{
     background-color: aquamarine;
     margin: 0.5em;
     display:table;

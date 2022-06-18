@@ -35,3 +35,7 @@ class Post(flask_db.Model):
     @classmethod
     def getOp(cls, op_id):
         return Post.select().where(Post.id == op_id)
+
+    @classmethod
+    def getLastReplies(cls, op_id):
+        return Post.select().where((Post.op_id == op_id) & (Post.id != op_id)).order_by(Post.date.desc()).limit(5)

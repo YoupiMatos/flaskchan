@@ -56,19 +56,35 @@
         </form>
     </div>
     {% for post in posts %}
-        <div class="post">
-            <div class="post_header">
+        <div class="op">
+            <div class="op_header">
                 <p>{{post.subject}}</p>
                 <p>{{post.name}}</p>
                 <p>{{post.date}}</p>
                 <p>No.{{post.id}}</p>
                 <a href=" {{ url_for('threadView', acronym=current_board.acronym, thread_id=post.id) }}">Voir le fil</a>
             </div>
-            <div class="content">
-                <img src="{{ url_for('static', filename='uploads/' ~ post.image) }}" alt="uploaded image" class='post-images minimized'>
+            <div class="op_content">
+                <img src="{{ url_for('static', filename='uploads/' ~ post.image) }}" alt="uploaded image" class='post_images minimized'>
                 <p>{{post.content}}</p>
             </div>
         </div>
+        {% for reply in post.previews %}
+            <div class="replies">
+                <div class="replies_header">
+                    <p>{{reply.subject}}</p>
+                    <p>{{reply.name}}</p>
+                    <p>{{reply.date}}</p>
+                    <p>No.{{reply.id}}</p>
+                </div>
+                <div class="replies_content">
+                    {% if reply.image %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ reply.image) }}" alt="uploaded image" class='post_images minimized'>
+                    {% endif %}
+                    <p>{{reply.content}}</p>
+                </div>
+            </div>
+        {% endfor %}
     {% endfor %}    
 
 {% endblock body %}

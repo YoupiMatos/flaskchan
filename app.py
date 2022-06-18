@@ -56,6 +56,8 @@ def boardView(acronym):
 
     current_board = get_object_or_404(Board.getCurrentBoard(acronym))
     posts = Post.getThreads(acronym)
+    for post in posts:
+        post.previews = Post.getLastReplies(post.id)
     boards = Board.getBoards()
     return render_template('board.html', posts = posts, boards = boards, current_board = current_board)
 
@@ -81,6 +83,7 @@ def threadView(acronym, thread_id):
         else:
             flash("Réponse enregistrée!", "success")
             return redirect('/boards/' + acronym + "/" + thread_id)
+
 
     current_board = get_object_or_404(Board.getCurrentBoard(acronym))
     op = get_object_or_404(Post.getOp(thread_id))
